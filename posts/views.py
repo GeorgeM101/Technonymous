@@ -6,6 +6,9 @@ from .models import Post, Comment, Vote
 from .forms import CommentForm, PostForm
 
 # Create your views here.
+def index(request):
+    return render(request, 'posts/index.html')
+
 def post_list(request):
     posts = Post.objects.all().order_by('-created_at')
     query = request.GET.get('q')
@@ -16,7 +19,8 @@ def post_list(request):
             Q(author__username__icontains=query)
         ).distinct()
     context = {'posts': posts}
-    return render(request, 'index.html', {'posts':posts})
+    return render(request, 'posts/post_list.html', context)
+
 
 def post_detail(request, post_id):
     post = get_object_or_404(Post, id=post_id)
