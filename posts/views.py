@@ -3,7 +3,6 @@ from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.db.models import Q
 from .models import Post, Comment, Vote
-from .forms import PostForm, CommentForm
 
 # Create your views here.
 def post_list(request):
@@ -16,4 +15,4 @@ def post_list(request):
             Q(author__username__icontains=query)
         ).distinct()
     context = {'posts': posts}
-    return render(render, 'posts/post_list.html')
+    return render(render, 'posts/post_list.html', context)

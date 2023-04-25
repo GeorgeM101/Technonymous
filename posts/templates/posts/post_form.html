@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+
+{% block title %}{% if post.id %}Edit{% else %} Create {% endif %} Post {% endblock %}
+
+{% block content %}
+       <h1>{% if post.id %}Edit{% else %}Create{% endif %} Post</h1>
+       <form method="POST" action="{% if post.id %}{% url 'post_edit' post_id=post.id %}{% else %}{% url 'post_create' %}{% endif %}">
+         {% csrf_token %}
+         <input type="text" name="title" placeholder="Title" value="{{ post.title|default:'' }}" required>
+         <textarea name="content" placeholder="Content" required>{{ post.content|default:'' }}</textarea>
+         <button type="submit">{% if post.id %}Save{% else %}Create{% endif %}</button>
+       </form>
+{% endblock %}
