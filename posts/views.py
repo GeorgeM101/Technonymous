@@ -16,7 +16,7 @@ def post_list(request):
             Q(author__username__icontains=query)
         ).distinct()
     context = {'posts': posts}
-    return render(request, 'posts/post_list.html', context)
+    return render(request, 'index.html', {'posts':posts})
 
 def post_detail(request, post_id):
     post = get_object_or_404(Post, id=post_id)
